@@ -17,8 +17,8 @@ query_url = "%s?%s=%s" % (url,parameter,injection)
 
 print(query_url)
 
-# http_request=requests.get(query_url,cookies=cookie)
+http_request=requests.get(query_url,cookies=cookie)
 
-# response_text = bs(http_request.text,"html.parser").prettify()
+response_text = bs(http_request.text,"html.parser").prettify()
 
-# print(response_text)
+print(response_text)
