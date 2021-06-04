@@ -6,7 +6,7 @@ from termcolor import colored
 from bs4 import BeautifulSoup as bs
 import sys, getopt
 
-url = "https://los.rubiya.kr/chall/goblin_e5afb87a6716708e3af46a849517afdc.php"
+url = "https://los.rubiya.kr/chall/darkelf_c6a5ed64c4f6a7a5595c24977376136b.php"
 parameter = 'no'
 cookie = dict(PHPSESSID='lqjdocrtrts7s5gl84ruvmc5aa')
 
